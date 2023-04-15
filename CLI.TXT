@@ -1,0 +1,136 @@
+Microsoft Windows [Version 10.0.22621.1555]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\aksha>cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p -local_infile
+mysql: [ERROR] mysql: unknown option '-l'.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u aksha -p -local_infile
+mysql: [ERROR] mysql: unknown option '-l'.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p --local_infile
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| b'udemy_maven'     |
+| food_db            |
+| ig_clone           |
+| information_schema |
+| mavenfuzzyfactory  |
+| mavenmovies        |
+| moviesdb           |
+| mysql              |
+| performance_schema |
+| random_yt          |
+| sql1               |
+| sql2               |
+| sys                |
++--------------------+
+13 rows in set (0.08 sec)
+
+mysql> show schemas;
++--------------------+
+| Database           |
++--------------------+
+| b'udemy_maven'     |
+| food_db            |
+| ig_clone           |
+| information_schema |
+| mavenfuzzyfactory  |
+| mavenmovies        |
+| moviesdb           |
+| mysql              |
+| performance_schema |
+| random_yt          |
+| sql1               |
+| sql2               |
+| sys                |
++--------------------+
+13 rows in set (0.01 sec)
+
+mysql> use sql2;
+Database changed
+mysql> show tables;
+Empty set (0.05 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_sql2 |
++----------------+
+| email_events   |
++----------------+
+1 row in set (0.26 sec)
+
+mysql> select * from email_events;
+Empty set (0.02 sec)
+
+mysql> load data local infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Table-3 email_events (4).csv'
+    -> into table email_events
+    -> fields terminated by ','
+    -> enclosed by'"'
+    -> lines terminated by '\n'
+    -> ignore 1 rows;
+ERROR 3948 (42000): Loading local data is disabled; this must be enabled on both the client and server sides
+mysql> show global variables like 'local_infile';
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| local_infile  | OFF   |
++---------------+-------+
+1 row in set (0.22 sec)
+
+mysql> set global local_infile=true;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show global variables like 'local_infile';
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| local_infile  | ON    |
++---------------+-------+
+1 row in set (0.34 sec)
+
+mysql> load data local infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Table-3 email_events (4).csv'
+    -> into table email_events
+    -> fields terminated by ','
+    -> enclosed by'"'
+    -> lines terminated by '\n'
+    -> ignore 1 rows;
+Query OK, 6179 rows affected, 65535 warnings (0.82 sec)
+Records: 90389  Deleted: 0  Skipped: 84210  Warnings: 84210
+
+mysql> load data local infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Table-1 users (4).csv'
+    -> into table users
+    -> fields terminated by ','
+    -> enclosed by'"'
+    -> lines terminated by '\n'
+    -> ignore 1 rows;
+Query OK, 19066 rows affected, 9685 warnings (0.44 sec)
+Records: 19066  Deleted: 0  Skipped: 0  Warnings: 9685
+
+mysql> load data local infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Table-2 events (3).csv'
+    -> into table events
+    -> fields terminated by ','
+    -> enclosed by'"'
+    -> lines terminated by '\n'
+    -> ignore 1 rows;
+Query OK, 9760 rows affected, 65535 warnings (2.61 sec)
+Records: 340832  Deleted: 0  Skipped: 331072  Warnings: 346649
+
+mysql>
